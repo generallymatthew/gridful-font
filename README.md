@@ -44,9 +44,22 @@ grid-calc/
 
 ## Getting Started
 
+### Local Development
 1. Clone the repository
 2. Open `grid_typographic_calculator.html` in a web browser
 3. Or use the built-in dev server: `npx http-server .`
+
+### GitHub Pages (Hosted Version)
+
+This project is hosted on GitHub Pages! After pushing to GitHub, enable GitHub Pages:
+
+1. Go to your repository settings on GitHub
+2. Scroll to "GitHub Pages" section
+3. Set "Source" to "Deploy from a branch"
+4. Select "main" branch and "/" (root) as the deployment folder
+5. Your site will be live at: `https://YOUR_USERNAME.github.io/grid-calc/`
+
+**Access the tool:** Simply open the GitHub Pages URL in your browser to use the hosted version!
 
 ## Author
 
