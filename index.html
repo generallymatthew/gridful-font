@@ -701,9 +701,7 @@
                 
                 <div class="input-group">
                     <label for="textInput">Poster Grid Content (Line separated)</label>
-                    <textarea id="textInput" spellcheck="false">FUCK
-THIS
-YEAR</textarea>
+                    <textarea id="textInput" spellcheck="false" placeholder="Enter text here..."></textarea>
                 </div>
 
                 <div class="checkbox-group">
@@ -1032,7 +1030,17 @@ YEAR</textarea>
         
         function generatePoster() {
             const rawLines = textInput.value.toUpperCase().split('\n').filter(l => l.trim().length > 0);
-            if (rawLines.length === 0) return;
+            if (rawLines.length === 0) {
+                // Clear the grid and metrics when no text
+                poster.innerHTML = '';
+                document.getElementById('valCols').innerText = '0';
+                document.getElementById('valRows').innerText = '0';
+                document.getElementById('valWidth').innerText = '0"';
+                document.getElementById('valHeight').innerText = '0"';
+                document.getElementById('canvasWidth').value = '0';
+                document.getElementById('canvasHeight').value = '0';
+                return;
+            }
 
             const N = rawLines.length;
             const longestLineLength = Math.max(...rawLines.map(l => l.length));
