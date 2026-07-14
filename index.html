@@ -1504,7 +1504,20 @@ Here</textarea>
 
                 for (let charIdx = 0; charIdx < lineText.length; charIdx++) {
                     const char = lineText[charIdx];
-                    const fontGlyph = font[char] || font[' '];
+                    let fontGlyph = font[char] || font[' '];
+
+                    // Use custom font if one is selected
+                    if (currentFont !== 'default') {
+                        try {
+                            const customFonts = JSON.parse(localStorage.getItem('customFonts') || '{}');
+                            if (customFonts[currentFont] && customFonts[currentFont][char]) {
+                                fontGlyph = customFonts[currentFont][char];
+                            }
+                        } catch (e) {
+                            // Fall back to default font if there's an error
+                        }
+                    }
+
                     const charStartCol = leftPadding + charIdx * 6;
 
                     for (let r = 0; r < 5; r++) {
