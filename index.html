@@ -1710,6 +1710,10 @@ Here</textarea>
             showToast("Grid downloaded as SVG!");
         }
 
+        // Font Designer Feature - Initialize variables before first render
+        let currentFont = 'default';
+        let designerState = {};
+
         // Initialize Render
         generatePoster();
 
@@ -1735,9 +1739,6 @@ Here</textarea>
         }
 
         // Font Designer Feature
-        let currentFont = 'default';
-        let designerState = {};
-
         function switchMode(mode) {
             const canvasView = document.getElementById('canvasView');
             const designerView = document.getElementById('designerView');
