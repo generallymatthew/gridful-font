@@ -1504,7 +1504,7 @@ Here</textarea>
 
                 for (let charIdx = 0; charIdx < lineText.length; charIdx++) {
                     const char = lineText[charIdx];
-                    const fontGlyph = font[char] || font[' '];
+                    const fontGlyph = getLetterGlyph(char);
                     const charStartCol = leftPadding + charIdx * 6;
 
                     for (let r = 0; r < 5; r++) {
