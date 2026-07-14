@@ -235,9 +235,9 @@
             width: 100%;
             background-color: #ffffff;
             color: var(--brand-teal);
-            padding: 14px 20px;
-            border-radius: 8px;
-            font-size: 14px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 12px;
             font-weight: 700;
             text-decoration: none;
             border: 1px solid #e8e8e8;
@@ -254,7 +254,7 @@
         /* --- Interactive Showcase Layout --- */
         .calculator-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 340px 1fr;
             width: 100%;
             height: calc(100vh - 80px);
         }
@@ -262,6 +262,9 @@
         @media (max-width: 1024px) {
             .calculator-grid {
                 grid-template-columns: 1fr;
+                height: auto;
+                display: flex;
+                flex-direction: column;
             }
         }
 
@@ -274,11 +277,42 @@
             justify-content: center;
             align-items: center;
             position: relative;
+            width: 340px;
+            height: 100%;
+        }
+
+        .calculator-grid.designer-mode {
+            grid-template-columns: 1fr;
+        }
+
+        .calculator-grid.designer-mode .canvas-dock {
+            width: 100%;
+            grid-column: 1;
+        }
+
+        .calculator-grid.designer-mode .controls-dock {
+            display: none !important;
+        }
+
+        @media (max-width: 1024px) {
+            .controls-dock {
+                justify-content: flex-start;
+                height: auto;
+                width: 100%;
+                min-width: 100%;
+                flex: 0 0 auto;
+            }
+
+            .canvas-dock {
+                width: 100%;
+                min-width: 100%;
+                flex: 0 0 auto;
+            }
         }
 
         .controls-card {
             background-color: transparent;
-            padding: 36px;
+            padding: 20px 24px;
             border-radius: 0;
             border: none;
             border-right: 1px solid #f0f0f0;
@@ -286,37 +320,61 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 14px;
+        }
+
+        @media (max-width: 1024px) {
+            .controls-card {
+                display: none;
+                grid-template-columns: 1fr;
+            }
+
+            .controls-dock {
+                display: none !important;
+            }
+
+            .controls-dock.mobile-open {
+                display: flex !important;
+            }
+
+            .controls-dock.mobile-open .controls-card {
+                display: grid !important;
+                grid-template-columns: 1fr;
+            }
         }
 
         .panel-title {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--brand-dark);
-            margin-bottom: -8px;
+            margin-bottom: -4px;
         }
 
         .input-group {
-            display: flex;
+            display: flex !important;
             flex-direction: column;
-            gap: 8px;
+            gap: 3px;
+        }
+
+        .controls-card > .checkbox-group {
+            grid-column: 1 / -1;
         }
 
         label {
-            font-size: 11px;
+            font-size: 9px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             color: var(--brand-text-muted);
         }
 
         textarea, input[type="number"], select {
-            border: 2px solid #eaeaea;
-            border-radius: 8px;
+            border: 1px solid #eaeaea;
+            border-radius: 6px;
             color: var(--brand-dark);
-            padding: 14px;
+            padding: 8px 10px;
             font-family: inherit;
-            font-size: 15px;
+            font-size: 13px;
             font-weight: 500;
             resize: none;
             outline: none;
@@ -325,7 +383,7 @@
         }
 
         textarea {
-            min-height: 110px;
+            min-height: 70px;
         }
 
         input[type="number"], select {
@@ -339,16 +397,16 @@
         .checkbox-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
             border-top: 1px solid #f0f0f0;
-            padding-top: 16px;
+            padding-top: 10px;
         }
 
         .checkbox-label {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 13px;
+            gap: 8px;
+            font-size: 12px;
             font-weight: 500;
             color: var(--brand-dark);
             cursor: pointer;
@@ -358,10 +416,10 @@
         .checkbox-label input {
             appearance: none;
             -webkit-appearance: none;
-            width: 44px;
-            height: 24px;
+            width: 36px;
+            height: 20px;
             background-color: #e0e0e0;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             position: relative;
             transition: background-color 0.3s ease;
@@ -374,14 +432,14 @@
         .checkbox-label input::before {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background-color: white;
             top: 2px;
             left: 2px;
             transition: left 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
         }
 
         .checkbox-label input:checked {
@@ -389,7 +447,7 @@
         }
 
         .checkbox-label input:checked::before {
-            left: 22px;
+            left: 18px;
         }
 
         /* Right Side: Interactive Canvas in Clean White Block */
@@ -403,6 +461,14 @@
             position: relative;
             overflow: auto;
             height: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .canvas-dock {
+                height: 100vh;
+                min-height: 100vh;
+                padding: 20px;
+            }
         }
 
         /* Visual Ruler Headers */
@@ -419,6 +485,14 @@
             max-width: 100%;
             max-height: 100%;
             overflow: auto;
+        }
+
+        @media (max-width: 1024px) {
+            .canvas-wrapper {
+                height: auto;
+                min-height: 200px;
+                padding: 12px;
+            }
         }
 
         .ruler-x {
@@ -477,12 +551,12 @@
 
         /* Grid lines toggle styles */
         .grid-lines .cell {
-            border-right: 1px solid rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+            border-right: 1px solid rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.5);
         }
         .grid-lines {
-            border-left: 1px solid rgba(0, 0, 0, 0.3);
-            border-top: 1px solid rgba(0, 0, 0, 0.3);
+            border-left: 1px solid rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(0, 0, 0, 0.5);
         }
 
         /* 5x5 Typographic Drawing Building Blocks */
@@ -494,13 +568,14 @@
 
         /* Secondary Row of Alternating Block Panels (Parameters Overview) */
         .metrics-section {
-            display: grid;
+            display: none;
             grid-template-columns: 1.2fr 1fr;
             width: 100%;
         }
 
         @media (max-width: 1024px) {
             .metrics-section {
+                display: none;
                 grid-template-columns: 1fr;
             }
         }
@@ -555,6 +630,7 @@
 
         /* --- Footer Styles --- */
         .cta-banner {
+            display: none;
             background-color: var(--brand-red);
             padding: 60px 20px;
             text-align: center;
@@ -570,10 +646,11 @@
         }
 
         .main-footer {
+            display: none;
             max-width: 1100px;
             margin: 0 auto;
             padding: 40px 20px;
-            display: flex;
+            flex-direction: row;
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid #f0f0f0;
@@ -652,6 +729,310 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             z-index: 100;
         }
+
+        /* Font Designer Styles */
+        .view {
+            display: none;
+            grid-column: 2;
+            grid-row: 1;
+            width: 100%;
+            height: 100%;
+        }
+        .view.active { display: block; }
+
+        @media (max-width: 1024px) {
+            .view {
+                grid-column: auto;
+                grid-row: auto;
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .font-designer-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .designer-header {
+            padding: 24px 40px;
+            border-bottom: 1px solid #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fafafa;
+        }
+
+        .designer-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--brand-dark);
+        }
+
+        .designer-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .input-group-inline {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .input-group-inline input {
+            padding: 10px 14px;
+            border: 2px solid #eaeaea;
+            border-radius: 6px;
+            font-size: 13px;
+            min-width: 180px;
+        }
+
+
+        .designer-content {
+            flex: 1;
+            overflow: auto;
+            padding: 40px;
+        }
+
+        .alphabet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .letter-editor {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            background-color: #fafafa;
+        }
+
+        .letter-label {
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 12px;
+            color: var(--brand-dark);
+        }
+
+        .letter-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
+            background-color: transparent;
+            padding: 0;
+            aspect-ratio: 1;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .letter-cell {
+            background-color: #ffffff;
+            cursor: pointer;
+            border: none;
+            padding: 0;
+            transition: background-color 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+        }
+
+        .letter-cell:hover {
+            background-color: #f0f0f0;
+        }
+
+        .letter-cell.b { background-color: #222222 !important; }
+        .letter-cell.tl { background-color: transparent; background: linear-gradient(135deg, #222222 50%, transparent 50%); }
+        .letter-cell.tr { background-color: transparent; background: linear-gradient(225deg, #222222 50%, transparent 50%); }
+        .letter-cell.bl { background-color: transparent; background: linear-gradient(45deg, #222222 50%, transparent 50%); }
+        .letter-cell.br { background-color: transparent; background: linear-gradient(135deg, transparent 50%, #222222 50%); }
+
+        .letter-cell.filled {
+            background-color: var(--brand-dark);
+        }
+
+        .mode-toggle {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .mode-btn {
+            padding: 10px 16px;
+            border: 1px solid #ddd;
+            background-color: #ffffff;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+            color: var(--brand-dark);
+        }
+
+        .mode-btn.active {
+            background-color: var(--brand-red);
+            color: #ffffff;
+            border-color: var(--brand-red);
+        }
+
+        .mode-btn:hover:not(.active) {
+            border-color: var(--brand-text-muted);
+        }
+
+        /* Mobile Settings Toggle */
+        .mobile-settings-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 102;
+            font-size: 28px;
+            padding: 0;
+            width: auto;
+            height: auto;
+            color: var(--brand-dark);
+        }
+
+        .mobile-settings-btn:hover {
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .controls-dock.mobile-open ~ .mobile-settings-btn {
+            display: none !important;
+        }
+
+        .mobile-settings-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+        }
+
+        .mobile-close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--brand-dark);
+            padding: 0;
+            width: 32px;
+            height: 32px;
+            display: none;
+        }
+
+        .mobile-settings-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ffffff;
+            z-index: 101;
+            overflow-y: auto;
+            padding-top: 60px;
+        }
+
+        .mobile-settings-panel.open {
+            display: block;
+        }
+
+        .mobile-settings-overlay.open {
+            display: block;
+        }
+
+        .mobile-settings-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--brand-dark);
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-settings-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mobile-close-btn {
+                display: flex !important;
+            }
+
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                height: 100vh;
+                display: grid;
+                grid-template-rows: 1fr;
+            }
+
+            .controls-dock {
+                display: none !important;
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            .controls-dock.mobile-open {
+                display: flex !important;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #ffffff;
+                z-index: 101;
+                padding-top: 60px;
+                justify-content: flex-start;
+                overflow-y: auto;
+            }
+
+            .canvas-dock {
+                width: 100%;
+                height: 100%;
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            .canvas-dock.view.active {
+                display: flex;
+            }
+
+            .mobile-settings-overlay.open {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-settings-btn {
+                bottom: 16px;
+                right: 16px;
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -693,12 +1074,15 @@
 
     <!-- Main Workspace Area -->
     <section class="calculator-grid" id="calculator-start">
-        
+
         <!-- Interactive Controls (Teal Panel) -->
         <div class="controls-dock">
             <div class="controls-card">
-                <h3 class="panel-title">Layout Parameters</h3>
-                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <h3 class="panel-title" style="margin: 0;">Canvas settings</h3>
+                    <button id="closeMobileSettings" class="mobile-close-btn" onclick="closeMobileSettings()">✕</button>
+                </div>
+
                 <div class="input-group">
                     <label for="textInput">Poster Grid Content (Line separated)</label>
                     <textarea id="textInput" spellcheck="false">Text
@@ -706,47 +1090,76 @@ Goes
 Here</textarea>
                 </div>
 
-                <div class="checkbox-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="showGrid" onchange="updateGrid()">
-                        Show Grid
-                    </label>
-                    <label class="checkbox-label" style="display: none;">
-                        <input type="checkbox" id="showRulers" onchange="updateRulers()">
-                        Show Scale Rulers (Inches)
-                    </label>
-                </div>
-
                 <div class="input-group">
-                    <label for="gridSize">Grid Cell Size</label>
-                    <select id="gridSize" onchange="updateCellSize()">
-                        <option value="0.5">0.5 inches</option>
-                        <option value="1" selected>1 inch</option>
-                        <option value="2">2 inches</option>
+                    <label for="fontSelect">Font</label>
+                    <select id="fontSelect" onchange="switchFont()">
+                        <option value="default">Default Font</option>
                     </select>
                 </div>
 
-                <div class="input-group">
-                    <label for="canvasWidth">Canvas Width (inches)</label>
-                    <input type="number" id="canvasWidth" min="1" max="100" value="0" step="0.5">
+                <button class="mode-btn" id="modeDesigner" onclick="switchMode('designer')">Design Font</button>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: start;">
+                    <div class="input-group">
+                        <label for="gridSize">Grid Cell size</label>
+                        <select id="gridSize" onchange="updateCellSize()">
+                            <option value="0.5">0.5 inches</option>
+                            <option value="1" selected>1 inch</option>
+                            <option value="2">2 inches</option>
+                        </select>
+                    </div>
+                    <label class="checkbox-label" style="margin: 0;">
+                        <input type="checkbox" id="showGrid" onchange="updateGrid()">
+                        show grid
+                    </label>
                 </div>
 
-                <div class="input-group">
-                    <label for="canvasHeight">Canvas Height (inches)</label>
-                    <input type="number" id="canvasHeight" min="1" max="100" value="0" step="0.5">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="input-group">
+                        <label for="canvasWidth">Canvas width</label>
+                        <input type="number" id="canvasWidth" min="1" max="100" value="0" step="0.5">
+                    </div>
+                    <div class="input-group">
+                        <label for="canvasHeight">Canvas height</label>
+                        <input type="number" id="canvasHeight" min="1" max="100" value="0" step="0.5">
+                    </div>
                 </div>
 
-                <button class="btn-specs" onclick="copyConfig()">↓ Specs</button>
-                <button class="btn-specs" onclick="downloadPrintable()">⬇ Print File</button>
+                <button class="btn-specs" onclick="downloadPrintable()">download your design</button>
+
+                <label class="checkbox-label" style="display: none;">
+                    <input type="checkbox" id="showRulers" onchange="updateRulers()">
+                    Show Scale Rulers (Inches)
+                </label>
+                <button class="btn-specs" onclick="copyConfig()" style="display: none;">↓ Specs</button>
             </div>
         </div>
 
-        <!-- Render Target Canvas (White Panel) -->
-        <div class="canvas-dock">
+        <!-- Canvas View -->
+        <div class="canvas-dock view active" id="canvasView">
             <div class="canvas-wrapper" id="canvasWrapper">
                 <div class="ruler-x" id="rulerX"></div>
                 <div class="ruler-y" id="rulerY"></div>
                 <div class="poster-grid grid-lines" id="poster"></div>
+            </div>
+        </div>
+
+        <!-- Font Designer View -->
+        <div class="canvas-dock view" id="designerView">
+            <div class="font-designer-wrapper">
+                <div class="designer-header">
+                    <button class="mode-btn active" id="modeCanvasFromDesigner" onclick="switchMode('canvas')" style="margin: 0;">← Canvas</button>
+                    <div class="designer-title">Design Custom Font</div>
+                    <div class="designer-controls">
+                        <div class="input-group-inline">
+                            <input type="text" id="fontName" placeholder="Font name (e.g., MyFont)">
+                            <button class="btn-specs" onclick="saveCustomFont()" style="margin: 0; white-space: nowrap;">Save Font</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="designer-content">
+                    <div class="alphabet-grid" id="alphabetGrid"></div>
+                </div>
             </div>
         </div>
 
@@ -828,6 +1241,10 @@ Here</textarea>
 
     <!-- Clipboard Alert Message -->
     <div id="copyToast">Config metrics copied!</div>
+
+    <!-- Mobile Settings Button -->
+    <button class="mobile-settings-btn" id="mobileSettingsBtn" onclick="toggleMobileSettings()">⚙️</button>
+    <div class="mobile-settings-overlay" id="mobileSettingsOverlay" onclick="closeMobileSettings()"></div>
 
     <script>
         // Custom 5x5 Grid Font Definition
@@ -1303,6 +1720,206 @@ Here</textarea>
                 });
             });
         }
+
+        // Font Designer Feature
+        let currentFont = 'default';
+        let designerState = {};
+
+        function switchMode(mode) {
+            const canvasView = document.getElementById('canvasView');
+            const designerView = document.getElementById('designerView');
+            const modeDesigner = document.getElementById('modeDesigner');
+            const modeCanvasFromDesigner = document.getElementById('modeCanvasFromDesigner');
+            const controlsDock = document.querySelector('.controls-dock');
+            const calculatorGrid = document.querySelector('.calculator-grid');
+
+            if (mode === 'canvas') {
+                canvasView.classList.add('active');
+                designerView.classList.remove('active');
+                if (modeDesigner) modeDesigner.classList.remove('active');
+                if (modeCanvasFromDesigner) modeCanvasFromDesigner.classList.remove('active');
+                if (controlsDock) controlsDock.style.display = 'flex';
+                if (calculatorGrid) calculatorGrid.classList.remove('designer-mode');
+            } else {
+                canvasView.classList.remove('active');
+                designerView.classList.add('active');
+                if (modeDesigner) modeDesigner.classList.add('active');
+                if (modeCanvasFromDesigner) modeCanvasFromDesigner.classList.add('active');
+                if (controlsDock) controlsDock.style.display = 'none';
+                if (calculatorGrid) calculatorGrid.classList.add('designer-mode');
+                initDesigner();
+            }
+        }
+
+        function initDesigner() {
+            const alphabetGrid = document.getElementById('alphabetGrid');
+            alphabetGrid.innerHTML = '';
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ';
+
+            alphabet.split('').forEach(letter => {
+                const letterEditor = document.createElement('div');
+                letterEditor.className = 'letter-editor';
+
+                const label = document.createElement('div');
+                label.className = 'letter-label';
+                label.textContent = letter === ' ' ? 'SPACE' : letter;
+
+                const grid = document.createElement('div');
+                grid.className = 'letter-grid';
+
+                const glyph = getLetterGlyph(letter);
+
+                for (let i = 0; i < 25; i++) {
+                    const cell = document.createElement('button');
+                    cell.className = 'letter-cell';
+                    const cellClass = glyph[i] || '';
+
+                    if (cellClass) {
+                        cell.classList.add(cellClass);
+                    }
+
+                    cell.onclick = function(e) {
+                        e.preventDefault();
+                        toggleDesignCell(cell, letter, i);
+                    };
+
+                    grid.appendChild(cell);
+                }
+
+                letterEditor.appendChild(label);
+                letterEditor.appendChild(grid);
+                alphabetGrid.appendChild(letterEditor);
+            });
+        }
+
+        function toggleDesignCell(cellElement, letter, index) {
+            const classes = cellElement.className.split(' ').filter(c => c !== 'letter-cell');
+            const currentClass = classes.length > 0 ? classes[0] : '';
+
+            // Cycle through states: empty → b (full) → tl → tr → bl → br → empty
+            const states = ['', 'b', 'tl', 'tr', 'bl', 'br'];
+            const currentIndex = states.indexOf(currentClass);
+            const nextIndex = (currentIndex + 1) % states.length;
+            const nextClass = states[nextIndex];
+
+            const key = letter + '_' + index;
+            designerState[key] = nextClass;
+
+            if (nextClass === '') {
+                cellElement.className = 'letter-cell';
+            } else {
+                cellElement.className = 'letter-cell ' + nextClass;
+            }
+        }
+
+        function getLetterGlyph(letter) {
+            if (currentFont === 'default') {
+                return font[letter] || font[' '];
+            }
+
+            const customFonts = JSON.parse(localStorage.getItem('customFonts') || '{}');
+            if (customFonts[currentFont] && customFonts[currentFont][letter]) {
+                return customFonts[currentFont][letter];
+            }
+
+            return font[letter] || font[' '];
+        }
+
+        function saveCustomFont() {
+            const fontNameInput = document.getElementById('fontName');
+            const fontName = fontNameInput.value.trim();
+
+            if (!fontName) {
+                showToast('Please enter a font name');
+                return;
+            }
+
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ ';
+            const newFont = {};
+
+            alphabet.split('').forEach(letter => {
+                const glyph = [];
+                for (let i = 0; i < 25; i++) {
+                    const key = letter + '_' + i;
+                    glyph.push(designerState[key] || '');
+                }
+                newFont[letter] = glyph;
+            });
+
+            const customFonts = JSON.parse(localStorage.getItem('customFonts') || '{}');
+            customFonts[fontName] = newFont;
+            localStorage.setItem('customFonts', JSON.stringify(customFonts));
+
+            fontNameInput.value = '';
+            designerState = {};
+            loadCustomFonts();
+            initDesigner();
+            showToast(`Font "${fontName}" saved successfully!`);
+        }
+
+        function loadCustomFonts() {
+            const fontSelect = document.getElementById('fontSelect');
+            const customFonts = JSON.parse(localStorage.getItem('customFonts') || '{}');
+
+            const currentValue = fontSelect.value;
+            fontSelect.innerHTML = '<option value="default">Default Font</option>';
+
+            Object.keys(customFonts).forEach(fontName => {
+                const option = document.createElement('option');
+                option.value = fontName;
+                option.textContent = fontName;
+                fontSelect.appendChild(option);
+            });
+
+            fontSelect.value = currentValue;
+        }
+
+        function switchFont() {
+            const fontSelect = document.getElementById('fontSelect');
+            currentFont = fontSelect.value;
+            generatePoster();
+        }
+
+        // Initialize custom fonts on page load
+        loadCustomFonts();
+
+        // Mobile Settings Toggle
+        function toggleMobileSettings() {
+            const controlsDock = document.querySelector('.controls-dock');
+            const overlay = document.getElementById('mobileSettingsOverlay');
+
+            controlsDock.classList.toggle('mobile-open');
+            overlay.classList.toggle('open');
+        }
+
+        function closeMobileSettings() {
+            const controlsDock = document.querySelector('.controls-dock');
+            const overlay = document.getElementById('mobileSettingsOverlay');
+
+            controlsDock.classList.remove('mobile-open');
+            overlay.classList.remove('open');
+        }
+
+        // Ensure font selector is always visible
+        function ensureFontSelectorVisible() {
+            const fontSelect = document.getElementById('fontSelect');
+            if (fontSelect && fontSelect.parentElement) {
+                // Remove the style attribute entirely if it exists
+                fontSelect.parentElement.removeAttribute('style');
+                // Ensure it's flexed as a column like other input-groups
+                fontSelect.parentElement.classList.add('input-group');
+            }
+        }
+
+        // Run as soon as fontSelect might be available
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', ensureFontSelectorVisible);
+        } else {
+            ensureFontSelectorVisible();
+        }
+
+        // Also continuously check (in case something else adds the style)
+        setInterval(ensureFontSelectorVisible, 500);
     </script>
 </body>
 </html>
