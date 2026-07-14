@@ -1504,7 +1504,7 @@ Here</textarea>
 
                 for (let charIdx = 0; charIdx < lineText.length; charIdx++) {
                     const char = lineText[charIdx];
-                    const fontGlyph = currentFont === 'default' ? (font[char] || font[' ']) : (getLetterGlyph(char) || font[char] || font[' ']);
+                    const fontGlyph = font[char] || font[' '];
                     const charStartCol = leftPadding + charIdx * 6;
 
                     for (let r = 0; r < 5; r++) {
@@ -1697,10 +1697,6 @@ Here</textarea>
             showToast("Grid downloaded as SVG!");
         }
 
-        // Initialize font variables before first render
-        let currentFont = 'default';
-        let designerState = {};
-
         // Initialize Render
         generatePoster();
 
@@ -1726,6 +1722,9 @@ Here</textarea>
         }
 
         // Font Designer Feature
+        let currentFont = 'default';
+        let designerState = {};
+
         function switchMode(mode) {
             const canvasView = document.getElementById('canvasView');
             const designerView = document.getElementById('designerView');
